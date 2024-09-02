@@ -1,0 +1,57 @@
+/* Consolidated Sidebar CSS */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 0px 30px;
+    gap: 30px;
+
+    position: absolute;
+    width: 200px; 
+    height: calc(150vh - 111px); 
+    margin-top: 30px;
+
+    left: 0px;
+    background: #F0F6F3;
+    border-right: 1px solid #ddd; /* Keep this if you want a border */
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+.menu-item {
+    width: 100%;
+    height: 30px;
+    font-family: 'Happiness Sans';
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    padding: 17px;
+    color: #141414;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+.menu-item.selected {
+    color: #3E8D60;
+}
+
+
+
+@media (max-width: 500px) {
+    .sidebar {
+        transform: translateX(-100%); 
+    }
+    .sidebar.visible {
+        transform: translateX(0); 
+    }
+
+    .menu-item {
+        display: none; 
+    }
+    .menu-item.sales {
+        display: none;
+    }
+}
