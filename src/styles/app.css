@@ -1,0 +1,85 @@
+/* General App Structure */
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+@font-face {
+    font-family: 'Happiness Sans';
+    src: url('../asset/font/bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Happiness Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+/* Main Content Area */
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    padding-top: 20px;
+}
+
+/* Search Bar Container */
+.search-bar-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-left: 240px; /* Adjusted margin for sidebar width */
+}
+
+.purchase-history-container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-left: 5px;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    margin-left: 240px; /* Ensure content does not overlap the sidebar */
+    overflow-y: auto;
+}
+
+@media (max-width: 500px) {
+    .main-content {
+        flex-direction: column; 
+    }
+
+    .sidebar {
+        display: none; 
+    }
+
+
+    .search-bar-container {
+        margin-left: 30px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .purchase-history-container {
+        width: 110%;
+        box-sizing: border-box;
+        margin-left:0px;
+
+    }
+
+    .content {
+        margin-top: 0px;
+        margin-left: 8px;
+        margin-right: 40px;
+    }
+  
+}

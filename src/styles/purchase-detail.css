@@ -1,0 +1,193 @@
+.purchase-detail-container {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.purchase-summary {
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    border-radius: 10px;
+    height: auto;  /* Allow height to adjust based on content */
+    box-shadow: 0px 4px 1px rgba(0, 0, 0, 0.1);
+    padding: 20px; /* Increase padding to create more space */
+    margin-bottom: 30px;
+}
+
+.purchase-list-letter {
+    text-decoration: none; 
+    border: none; 
+    color: #141414; 
+    font-size: 20px; /* Slightly larger font size */
+    font-weight: 700;
+    padding-top: 10px;
+    margin-bottom: 20px; /* Add more spacing */
+}
+
+.purchase-id,
+.purchase-total,
+.purchase-date {
+    padding-left: 10px;
+    margin-left: 10px;
+    font-family: 'Happiness Sans';
+    font-size: 24px; /* Increase font size */
+    border-right: none; 
+    color: #141414;
+}
+
+.purchase-id-label,
+.purchase-total-label,
+.purchase-date-label {
+    color: #9B9E9C; 
+    margin-right: 10px;
+    font-size: 24px; /* Match label font size with value */
+}
+
+.purchase-list {
+    padding: 20px;
+}
+
+
+.purchase-list-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin-left: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #9B9E9C; 
+}
+
+.purchase-list-header span {
+    font-size: 22px; /* Increase header font size */
+}
+
+.mobile-item-detail{
+    display: none;
+}
+.purchase-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    margin-bottom: 20px; /* Add more spacing between items */
+}
+
+.item-image {
+    width: 134px;  /* Set width to match larger image */
+    height: 147px; /* Set height to match larger image */
+    background-size: cover;
+    background-position: center;
+    margin-right: 20px;
+}
+
+.item-name,
+.item-quantity,
+.item-price {
+    font-family: 'Happiness Sans';
+    font-size: 24px; /* Increase font size for item details */
+    color: #141414;
+    flex: 1;
+    text-align: right;
+    padding-right: 10px;
+}
+
+
+@media (max-width: 500px) {
+    .purchase-detail-container {
+        width: 100%;   
+    }
+
+    .purchase-summary {
+        flex-direction: column;
+        align-items: stretch;
+        background-color: #ffffff;
+        padding: 15px; /* Reduce padding for smaller screens */
+        height: auto;
+        box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.1); 
+        margin-bottom: 30px;
+    }
+    
+    .purchase-list-header {
+        display: none;
+    }
+
+    .purchase-list-letter {
+        font-size: 14px;
+    }
+
+    .item-name,
+    .item-quantity{
+        display: none;
+    }
+
+    .mobile-item-detail {
+        display: flex;
+        flex-direction: column;
+        margin-right: 10px;
+    }
+
+    .mobile-item-name{
+        margin-bottom: 10px;
+        font-size: 20px;
+    }
+
+    .item-name {
+        margin-bottom: 5px; /* Adds space between item name and quantity, adjust as needed */
+    }
+    .item-price{
+        padding-right: 0;
+    }
+    
+    .purchase-list-letter {
+        font-size: 18px; /* Adjust font size for smaller screens */
+        margin-bottom: 10px;
+    }
+
+    .purchase-summary > div {
+        margin-bottom: 10px; 
+        font-size: 20px; 
+    }
+
+    .purchase-id-label,
+    .purchase-total-label,
+    .purchase-date-label {
+        margin-top: 10px;
+        font-size: 20px;
+        color: #9B9E9C; 
+        margin-right: 10px;
+    }
+
+    .purchase-id-value,
+    .purchase-total-value,
+    .purchase-date-value {
+        color: #141414; 
+        font-size: 20px;
+    }
+
+    .purchase-id,
+    .purchase-total,
+    .purchase-date {
+        display: flex;
+        justify-content: space-between; 
+        font-size: 15px;
+        align-items: center; 
+    }
+    .item-price{
+        font-size: 18px;
+    }
+
+    .item-image {
+        width: 90px;  /* Set width to match larger image */
+        height: 100px; /* Set height to match larger image */
+        background-size: cover;
+        background-position: center;
+        margin-right: 20px;
+    }
+
+    .purchase-date {
+        margin-right: 1px;
+    }
+}

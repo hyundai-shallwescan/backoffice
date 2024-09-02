@@ -1,0 +1,155 @@
+/* Base Styles */
+.purchase-history-container {
+    width: calc(100% - 240px); /* Account for sidebar width */
+    padding: 30px;
+    box-sizing: border-box;
+    margin-left: 240px; /* Ensure it starts after the sidebar */
+}
+
+.purchase {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #FFFFFF;
+    box-shadow: 5px 5px 10px 5px rgba(131, 131, 131, 0.12); /* Box shadow for larger screens */
+    border-radius: 50px;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.purchase-info {
+    display: flex;
+    flex: 1; /* Allow info to take up space */
+    justify-content: space-between; /* Distribute items within the container */
+    align-items: center;
+}
+
+.purchase-name {
+    font-family: 'Happiness Sans';
+    font-weight: 700;
+    font-size: 25px;
+    color: #141414;
+    margin-right: auto; /* Pushes the name to the start */
+}
+
+.purchase-details {
+    display: flex;
+    align-items: center;
+}
+
+.purchase-date {
+    font-family: 'Happiness Sans';
+    font-weight: 400;
+    font-size: 24px;
+    color: #141414;
+    margin-right: 10px; 
+}
+
+.purchase-arrow {
+    font-size: 24px;
+    color: #9B9E9C;
+    cursor: pointer;
+}
+
+.purchase-arrow:hover {
+    color: #3E8D60;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.page-number {
+    font-family: 'Happiness Sans';
+    font-size: 18px;
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+    color: #141414;
+    border-radius: 50%;
+}
+
+.page-number.active {
+    font-weight: 700;
+    background: #3E8D60;
+    color: #FFFFFF;
+}
+
+.page-number:hover:not(.active) {
+    background: #E0E0E0;
+}
+
+.next-arrow {
+    font-family: 'Happiness Sans';
+    font-size: 18px;
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    color: #141414;
+}
+
+.next-arrow:disabled {
+    color: #C0C0C0;
+    cursor: not-allowed;
+}
+
+@media (max-width: 500px) {
+    .purchase-history-container {
+        box-sizing: border-box;
+    }
+
+    .purchase {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #FFFFFF;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        position: relative;
+        box-shadow: 2px 2px 5px 2px rgba(131, 131, 131, 0.1); /* Lighter box shadow for small screens */
+    }
+
+    .purchase-item {
+        display: flex;
+        flex-direction: row; 
+        justify-content: space-between; 
+        width: 90%;
+        align-items: center;
+        border-radius: 20px;
+        box-sizing: border-box;
+        margin-left: 0px;
+        border-bottom: px solid #ddd;
+    }
+
+    .purchase-name {
+        font-family: 'Happiness Sans';
+        font-weight: 700;
+        font-size: 20px;
+        color: #141414;
+        margin-right: auto; /* Pushes the name to the start */
+    }
+    
+    .purchase-date {
+        font-family: 'Happiness Sans';
+        font-weight: 400;
+        font-size: 20px;
+        color: #141414;
+        margin-right: 14px; /* Space between date and arrow */
+    }
+    
+    .purchase-arrow {
+        font-size: 20px;
+        color: #9B9E9C;
+        cursor: pointer;
+        margin-left: 5px;
+    }
+}
