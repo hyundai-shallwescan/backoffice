@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../styles/list.css'; // Ensure this path is correct
+import arrowIcon from '../asset/image/arrow.svg'; // Import your SVG image
 
 const PurchaseHistory = () => {
     const [purchases, setPurchases] = useState([]);
@@ -34,7 +35,12 @@ const PurchaseHistory = () => {
                         <div className="purchase-name">{purchase.name}</div>
                         <div className="purchase-details">
                             <div className="purchase-date">{purchase.date}</div>
-                            <div className="purchase-arrow" onClick={() => handleArrowClick(purchase)}>&gt;</div>
+                            <img 
+                                src={arrowIcon} 
+                                alt="Arrow Icon" 
+                                className="purchase-arrow" 
+                                onClick={() => handleArrowClick(purchase)} 
+                            />
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,7 @@
     justify-content: center;
     width: 100%;
     max-width: 1200px; /* Set a max-width to control layout on larger screens */
-    margin: 0 auto; /* Center the search bar within its container */
+    margin-top: 100px;
 }
 
 .search-input-container {
@@ -59,7 +59,22 @@
     text-align: center;
     margin-top: 10px;
 }
-
+.add-product-button {
+    width: 80px; /* Size for the '+' button */
+    height: 60px;
+    background: #2F674B;
+    color: white;
+    font-size: 40px; /* Size for the '+' symbol */
+    border-radius: 50%;
+    border: none;
+    margin-left: 15px;
+    box-shadow: 0px 8px 15px 8px rgba(131, 131, 131, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 30px;
+}
 
 @media (max-width: 500px) {
     .search-bar {
@@ -97,4 +112,5 @@
         margin-top: 10px; /* Space above the date picker */
         margin-left: 62%; /* Center below the button */
     }
+    
 }

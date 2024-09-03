@@ -9,7 +9,7 @@
     background-color: #F0F6F3;
     border: 3px solid #2F674B;
     border-radius: 100px;
-    margin-top: 15px;
+    margin-top: 110px;
     padding-left: 35px;
     box-sizing: border-box;
     box-shadow: 0px 4px 10px rgba(131, 131, 131, 0.08);
@@ -28,7 +28,7 @@
     background-color: #F0F6F3;
     border: 3px solid #2F674B;
     border-radius: 100px;
-    margin-top: 15px;
+    margin-top: 80px;
     padding-left: 20px;
     box-sizing: border-box;
     box-shadow: 0px 4px 10px rgba(131, 131, 131, 0.08);
@@ -49,27 +49,51 @@
     box-sizing: border-box;
     appearance: none; 
     -webkit-appearance: none;
-    -moz-appearance: none;}
+    -moz-appearance: none;
+}
 
-.dash-board-select-year::after,
-.dash-board-select-month::after {
-    font-size: 18px; 
-    color: #2F674B; 
-    position: absolute; 
-    right: 15px; 
-    top: 50%; 
-    transform: translateY(-50%); 
-    pointer-events: none; 
+
+
+.dash-board-select-year,
+.dash-board-select-month {
+    font-family: 'Happiness Sans', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #2F674B;
+    width: 135px;
+    height: 50px;
+    background-color: #F0F6F3;
+    border: 3px solid #2F674B;
+    margin-top: 80px;
+    border-radius: 100px;
+    padding-right: 40px; 
+    box-sizing: border-box;
+    box-shadow: 0px 4px 10px rgba(131, 131, 131, 0.08);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    position: relative;
+}
+
+.select-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-top: 15px; 
+    margin-right: 20px; 
 }
 
 .custom-arrow {
     position: absolute;
-    color: #2F674B; 
-    right: 15px; 
-    top: 50%; 
-    transform: translateY(-50%); 
-    pointer-events: none; 
+    width: 11px; 
+    margin-top: 40px;
+    margin-right: 25px;
+    height: 13px;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
 }
+
 
 
 .dash-board-date-picker {
@@ -88,9 +112,9 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap; 
-    width: 100%; 
+    width: 80%; 
     margin-top: 30px;
-    gap: 10px; 
+    gap: 10px; /* Set the gap between charts to 10px */
 }
 
 .chart-container {
@@ -100,7 +124,7 @@
     padding: 20px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
-    width: 85%;
+    width: 83%;
 }
 
 .total-sales-chart {
@@ -118,15 +142,18 @@
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
     margin-right: 0px;
-    width: 99%;
+    margin-left: 10%;
+    width: 80%;
+    max-width: 1000px;
 
 }
+
+
 .generation-sale-chart, .gender-sale-chart {
     flex: 0 1 49%; 
-    max-width: 49%; /* Adjusted max-width to take advantage of the available space */
-    margin-bottom: 0; /* Removes any additional bottom margin */
+    max-width: 49%;
+    margin: 0; 
 }
-
 .dash-board-chart h3 {
     text-align: center;
     margin-bottom: 20px; 
@@ -134,4 +161,6 @@
     color: #2F674B;
     font-family: 'Happiness Sans', sans-serif;
     font-weight: 700;
+    margin-right: 30px;
+    margin-bottom: 20px;
 }

@@ -1,0 +1,114 @@
+.product-management-detail-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.product-management-detail-content {
+    width: 50%;
+    min-width: 400px; /* Minimum width to handle small screens */
+    height: auto; /* Allow height to adjust based on content */
+    max-height: 90%; /* Limit maximum height to prevent overflow */
+    background-color: #fff;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: auto; /* Allow scrolling if content exceeds height */
+}
+
+.product-management-detail-form {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 15%;
+}
+
+.product-management-detail-form label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.product-management-detail-form input[type="text"],
+.product-management-detail-form input[type="number"] {
+    margin-bottom: 12px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.product-management-detail-form input[type="file"] {
+    display: none; /* Hide the default file input */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: #ccc; /* Default background color for "Choose" state */
+    color: black;
+    font-size: 16px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+.custom-file-upload.uploaded {
+    background-color: #3E8D60; /* Background color when image is selected */
+    color: white;
+}
+
+.preview-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 12px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    margin-top: 20px;
+    padding: 0 20px; /* Add padding for better spacing */
+    width: 100%; /* Use full width */
+}
+
+.submit-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 0 10px; /* Space between buttons */
+}
+
+.submit-button.enabled {
+    background-color: #3E8D60; /* Green background for enabled button */
+    color: white;
+}
+
+.submit-button.disabled {
+    background-color: #ccc; /* Gray background for disabled button */
+    color: #000;
+    cursor: not-allowed;
+}
+
+.cancel-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    margin: 0 10px; /* Space between buttons */
+}
+
+

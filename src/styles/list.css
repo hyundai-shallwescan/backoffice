@@ -18,6 +18,17 @@
     position: relative;
 }
 
+.purchase-arrow {
+    width: 24px; /* Adjust width as needed */
+    height: auto;
+    cursor: pointer;
+}
+
+.purchase-arrow:hover {
+    filter: brightness(1.2); /* Lightens the arrow on hover */
+}
+
+
 .purchase-info {
     display: flex;
     flex: 1; /* Allow info to take up space */
@@ -49,6 +60,8 @@
 .purchase-arrow {
     font-size: 24px;
     color: #9B9E9C;
+    height: 20px;
+    margin-left: 10px;
     cursor: pointer;
 }
 
