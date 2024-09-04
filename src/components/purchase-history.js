@@ -1,50 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/list.css'; // Ensure this path is correct
-import arrowIcon from '../asset/image/arrow.svg'; // Import your SVG image
+import api from '../api'; // Import your custom API client
+import { formatDateToKST } from '../components/time-util'; 
+import '../styles/list.css';
+import arrowIcon from '../asset/image/arrow.svg';
 
 const PurchaseHistory = () => {
     const [purchases, setPurchases] = useState([]);
+    const [page, setPage] = useState('0');
+    const [size, setSize] = useState('10');
+    const [startDate, setStartDate] = useState(new Date());
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchPurchases();
-    }, []);
+        // Extract baseURL from the axios instance
+        const baseURL = api.defaults.baseURL;
 
-    const fetchPurchases = () => {
-        const dummyData = [
-            { id: "user1", name: "shallwescan", date: "24.08.17 16:33:05", totalAmount: "50,000원" },
-            { id: "user2", name: "scanandduo", date: "24.08.17 16:23:05", totalAmount: "30,000원" },
-            { id: "user3", name: "duo", date: "24.08.17 14:33:05", totalAmount: "70,000원" },
-            { id: "user4", name: "scanscan", date: "24.08.17 12:33:05", totalAmount: "40,000원" },
-            { id: "user5", name: "yum", date: "24.08.17 11:33:05", totalAmount: "90,000원" },
-        ];
+        // Construct the full URL for EventSource
+        const eventSourceURL = `${baseURL}/admins/payments/members?page=${page}&size=${size}&year=${startDate.getFullYear()}&month=${startDate.getMonth() + 1}&day=${startDate.getDate()}`;
 
-        setPurchases(dummyData);
-    };
+        const eventSource = new EventSource(eventSourceURL);
+
+        eventSource.onmessage = (event) => {
+            const payment = JSON.parse(event.data);
+            payment.createdAt = formatDateToKST(payment.createdAt); // Convert time to KST
+            setPurchases((prevPurchases) => [payment, ...prevPurchases]);
+        };
+
+        return () => {
+            eventSource.close();
+        };
+    }, [page, size, startDate]);
 
     const handleArrowClick = (purchase) => {
-        navigate(`/purchase-detail/${purchase.id}`, { state: { purchaseId: purchase.id, purchaseDate: purchase.date } });
+        navigate(`/purchase-detail/${purchase.id}`, { state: { purchaseId: purchase.id, purchaseDate: purchase.createdAt } });
     };
 
     return (
         <div className="purchase-history-container">
-            {purchases.map((purchase, index) => (
-                <div key={index} className="purchase">
-                    <div className="purchase-info">
-                        <div className="purchase-name">{purchase.name}</div>
-                        <div className="purchase-details">
-                            <div className="purchase-date">{purchase.date}</div>
-                            <img 
-                                src={arrowIcon} 
-                                alt="Arrow Icon" 
-                                className="purchase-arrow" 
-                                onClick={() => handleArrowClick(purchase)} 
-                            />
+            {purchases.length > 0 ? (
+                purchases.map((purchase) => (
+                    <div key={purchase.id} className="purchase">
+                        <div className="purchase-info">
+                            <div className="purchase-name">{purchase.userName}</div>
+                            <div className="purchase-details">
+                                <div className="purchase-date">{purchase.createdAt}</div>
+                                <img 
+                                    src={arrowIcon} 
+                                    alt="Arrow Icon" 
+                                    className="purchase-arrow" 
+                                    onClick={() => handleArrowClick(purchase)} 
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-            ))}
+                ))
+            ) : (
+                <p>No purchases available.</p>
+            )}
         </div>
     );
 };

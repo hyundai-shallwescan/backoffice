@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/searchbar.css';
 
-const SearchBar = ({ hideDatePicker }) => {
+const SearchBar = ({ hideDatePicker, onSearch }) => {
     const [username, setUsername] = useState('');
     const [startDate, setStartDate] = useState(new Date());
 
     const navigate = useNavigate(); // Initialize useNavigate
 
+    // Effect to trigger search on date change
+    useEffect(() => {
+        if (onSearch) {
+            onSearch(username, startDate);
+        }
+    }, [startDate, username, onSearch]);
+
     const handleSearch = () => {
         console.log('Searching for:', username, startDate);
-        // Add your search logic here
+        if (onSearch) {
+            onSearch(username, startDate);
+        }
     };
 
     const handleAddProduct = () => {
-        console.log('Adding a new product');
         navigate('/product-management-detail'); // Navigate to the product management detail page
     };
 

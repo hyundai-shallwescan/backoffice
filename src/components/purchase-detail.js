@@ -8,7 +8,6 @@ const PurchaseDetail = () => {
     const [purchaseDetail, setPurchaseDetail] = useState(null);
 
     useEffect(() => {
-        // Simulate an API call
         const fetchPurchaseDetail = () => {
             const data = {
                 id: "123456",
