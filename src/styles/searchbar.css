@@ -1,0 +1,116 @@
+.search-bar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 1200px; /* Set a max-width to control layout on larger screens */
+    margin-top: 100px;
+}
+
+.search-input-container {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1; /* Allows the input-container to fill available space */
+    margin-right: 20px;
+}
+
+.search-input {
+    width: 100%; /* Use percentage width for consistency */
+    height: 60px;
+    background: #FFFFFF;
+    box-shadow: 0px 8px 15px 8px rgba(131, 131, 131, 0.12);
+    border-radius: 100px;
+    border: none;
+    font-family: 'Happiness Sans', sans-serif;
+    font-size: 20px;
+    padding: 0 30px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+.search-button {
+    width: 20%; /* Set a fixed width for consistency */
+    height: 60px;
+    background: #3E8D60;
+    box-shadow: 0px 8px 15px 8px rgba(131, 131, 131, 0.12);
+    border-radius: 100px;
+    margin-left: 15px;
+    border: none;
+    font-family: 'Happiness Sans';
+    font-weight: 700;
+    font-size: 24px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.date-picker {
+    width: 80%; /* Fixed width */
+    height: 55px;
+    background: #F0F6F3;
+    border: 3px solid #2F674B;
+    box-shadow: 0px 8px 15px 8px rgba(131, 131, 131, 0.12);
+    border-radius: 100px;
+    font-family: 'Happiness Sans';
+    font-weight: 700;
+    font-size: 24px;
+    margin-left: 40px;
+    color: #2F674B;
+    text-align: center;
+    margin-top: 10px;
+}
+.add-product-button {
+    width: 80px; /* Size for the '+' button */
+    height: 60px;
+    background: #2F674B;
+    color: white;
+    font-size: 40px; /* Size for the '+' symbol */
+    border-radius: 50%;
+    border: none;
+    margin-left: 15px;
+    box-shadow: 0px 8px 15px 8px rgba(131, 131, 131, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+@media (max-width: 500px) {
+    .search-bar {
+        flex-direction: column; /* Stack items vertically */
+        align-items: center;
+        justify-content: center;
+        width: 300%;
+    }
+
+    .search-input-container {
+        width: 100%;
+        display:flex;
+        justify-content:center;
+        padding: 0 10px;
+    }
+
+    .search-input {
+        width: 100%; /* Full width for mobile */
+        height: 12vw; /* Responsive height for mobile */
+        margin-right: 0; /* Remove right margin to prevent overflow */
+        margin-left: 0; /* Remove left margin for better alignment */
+    }
+
+    .search-button {
+        width: 30%; /* Full width for mobile */
+        height: 12vw; /* Responsive height for mobile */
+        font-size: 16px; /* Slightly smaller font size for mobile */
+        border-radius: 28px;
+        margin-left: 15px; /* Remove left margin for better alignment */
+    }
+
+    .date-picker {
+        width:50%; /* Full width for mobile */
+        height: 7vw; /* Responsive height for mobile */
+        margin-top: 10px; /* Space above the date picker */
+        margin-left: 62%; /* Center below the button */
+    }
+    
+}
