@@ -1,64 +1,49 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import '../styles/purchase-detail.css'; // Ensure the correct path
 
 const PurchaseDetail = () => {
     const location = useLocation();
-    const { purchaseId, purchaseDate } = location.state || {};
-    const [purchaseDetail, setPurchaseDetail] = useState(null);
+    const { purchaseDetail } = location.state || {};
+    const { userName } = location.state || {};
+    const { createdAt } = location.state || {};
 
-    useEffect(() => {
-        const fetchPurchaseDetail = () => {
-            const data = {
-                id: "123456",
-                totalAmount: 50000,
-                items: [
-                    {
-                        image: "https://via.placeholder.com/134",
-                        name: "상품 A",
-                        quantity: 2,
-                        price: 15000
-                    },
-                    {
-                        image: "https://via.placeholder.com/134",
-                        name: "상품 B",
-                        quantity: 1,
-                        price: 20000
-                    },
-                    {
-                        image: "https://via.placeholder.com/134",
-                        name: "상품 C",
-                        quantity: 3,
-                        price: 5000
-                    }
-                ]
-            };
-            setPurchaseDetail(data);
-        };
 
-        if (purchaseId) {
-            fetchPurchaseDetail();
-        }
-    }, [purchaseId]);
+    console.log(userName);
+    console.log(purchaseDetail[0].paymentCreatedAt);
+
 
     if (!purchaseDetail) {
-        return <div>로딩 중입니다.</div>;
+        return <div>로딩 중입니다.</div>; 
     }
+
+    const formatNumber = (value) => {
+        return (value || 0).toLocaleString(); 
+    };
+
+    const formatDate = (dateStr) => {
+        const dateObject = new Date(dateStr);
+        return !isNaN(dateObject.getTime()) ? dateObject.toLocaleTimeString('en-KR', { timeZone: 'Asia/Seoul' }) : 'Invalid time';
+    };
+
+    const formattedTime = formatDate(purchaseDetail.paymentCreatedAt);
 
     return (
         <div className="purchase-detail-container">
             <div className="purchase-summary">
                 <div className="purchase-id">
                     <span className="purchase-id-label">아이디</span>
-                    <span className="purchase-id-value">{purchaseDetail.id}</span>
+                    <span className="purchase-id-value">{userName}</span>
                 </div>
                 <div className="purchase-total">
                     <span className="purchase-total-label">총 결제 금액</span>
-                    <span className="purchase-total-value">{purchaseDetail.totalAmount.toLocaleString()}원</span>
+                    <span className="purchase-total-value">
+                        {formatNumber(purchaseDetail.totalAmountSum)}원
+                    </span>
                 </div>
                 <div className="purchase-date">
                     <span className="purchase-date-label">결제 시각</span>
-                    <span className="purchase-date-value">{purchaseDate}</span>
+                    <span className="purchase-date-value">{createdAt}</span>
                 </div>
             </div>
             <div className="purchase-list-letter"><h2>구매내역</h2></div>
@@ -69,18 +54,24 @@ const PurchaseDetail = () => {
                     <span>수량</span>
                     <span>가격</span>
                 </div>
-                {purchaseDetail.items.map((item, index) => (
-                    <div key={index} className="purchase-list-item">
-                        <div className="item-image" style={{ backgroundImage: `url(${item.image})` }}></div>
-                        <div className="item-name">{item.name}</div>
-                        <div className="item-quantity">{item.quantity}개</div>
-                        <div className='mobile-item-detail'>
-                        <div className="mobile-item-name">{item.name}</div>
-                        <div className="mobile-item-quantity">{item.quantity}개</div>
+                {purchaseDetail[0]?.purchasedProducts && purchaseDetail[0]?.purchasedProducts.length > 0 ? (
+                    purchaseDetail[0].purchasedProducts.map((item) => (
+                        <div key={item.productId} className="purchase-list-item">
+                            <div className="item-image" style={{ backgroundImage: `url(${item.thumbnailImage})` }}></div>
+                            <div className="item-name">{item.productName || 'N/A'}</div>
+                            <div className="item-quantity">{item.quantity || 'N/A'}개</div>
+                            <div className='mobile-item-detail'>
+                                <div className="mobile-item-name">{item.productName || 'N/A'}</div>
+                                <div className="mobile-item-quantity">{item.quantity || 'N/A'}개</div>
+                            </div>
+                            <div className="item-price">
+                                {formatNumber(item.price)}원
+                            </div>
                         </div>
-                        <div className="item-price">{item.price.toLocaleString()}원</div>
-                    </div>
-                ))}
+                    ))
+                ) : (
+                    <p>구매 내역이 없습니다.</p>
+                )}
             </div>
         </div>
     );

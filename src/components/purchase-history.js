@@ -13,17 +13,15 @@ const PurchaseHistory = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Extract baseURL from the axios instance
         const baseURL = api.defaults.baseURL;
 
-        // Construct the full URL for EventSource
         const eventSourceURL = `${baseURL}/admins/payments/members?page=${page}&size=${size}&year=${startDate.getFullYear()}&month=${startDate.getMonth() + 1}&day=${startDate.getDate()}`;
 
         const eventSource = new EventSource(eventSourceURL);
 
         eventSource.onmessage = (event) => {
             const payment = JSON.parse(event.data);
-            payment.createdAt = formatDateToKST(payment.createdAt); // Convert time to KST
+            payment.createdAt = formatDateToKST(payment.createdAt); 
             setPurchases((prevPurchases) => [payment, ...prevPurchases]);
         };
 
@@ -32,15 +30,28 @@ const PurchaseHistory = () => {
         };
     }, [page, size, startDate]);
 
-    const handleArrowClick = (purchase) => {
-        navigate(`/purchase-detail/${purchase.id}`, { state: { purchaseId: purchase.id, purchaseDate: purchase.createdAt } });
+    const handleArrowClick = async (purchase) => {
+        try {
+            const response = await api.get(`/admins/payments/${purchase.paymentId}`);
+            const purchaseDetail = response.data;
+
+            navigate(`/purchase-detail/${purchase.paymentId}`, { 
+                state: { 
+                    purchaseDetail,
+                    userName: purchase.userName,
+                    createdAt: purchase.createdAt
+                } 
+            });
+        } catch (error) {
+            console.error('Error fetching purchase detail:', error);
+        }
     };
 
     return (
         <div className="purchase-history-container">
             {purchases.length > 0 ? (
                 purchases.map((purchase) => (
-                    <div key={purchase.id} className="purchase">
+                    <div key={purchase.paymentId} className="purchase">
                         <div className="purchase-info">
                             <div className="purchase-name">{purchase.userName}</div>
                             <div className="purchase-details">
