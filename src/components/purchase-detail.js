@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import '../styles/purchase-detail.css'; // Ensure the correct path
+import '../styles/purchase-detail.css'; 
 
 const PurchaseDetail = () => {
     const location = useLocation();
@@ -9,9 +9,8 @@ const PurchaseDetail = () => {
     const { createdAt } = location.state || {};
 
 
-    console.log(userName);
-    console.log(purchaseDetail[0].paymentCreatedAt);
 
+    console.log();
 
     if (!purchaseDetail) {
         return <div>로딩 중입니다.</div>; 
@@ -23,7 +22,9 @@ const PurchaseDetail = () => {
 
     const formatDate = (dateStr) => {
         const dateObject = new Date(dateStr);
-        return !isNaN(dateObject.getTime()) ? dateObject.toLocaleTimeString('en-KR', { timeZone: 'Asia/Seoul' }) : 'Invalid time';
+        return !isNaN(dateObject.getTime())
+            ? dateObject.toLocaleString() 
+            : 'Invalid time';
     };
 
     const formattedTime = formatDate(purchaseDetail.paymentCreatedAt);
@@ -38,7 +39,7 @@ const PurchaseDetail = () => {
                 <div className="purchase-total">
                     <span className="purchase-total-label">총 결제 금액</span>
                     <span className="purchase-total-value">
-                        {formatNumber(purchaseDetail.totalAmountSum)}원
+                        {formatNumber(purchaseDetail[0].totalAmountSum)}원
                     </span>
                 </div>
                 <div className="purchase-date">
@@ -48,12 +49,6 @@ const PurchaseDetail = () => {
             </div>
             <div className="purchase-list-letter"><h2>구매내역</h2></div>
             <div className="purchase-list">
-                {/* <div className="purchase-list-header">
-                    <span>상품 이미지</span>
-                    <span>상품명</span>
-                    <span>수량</span>
-                    <span>가격</span>
-                </div> */}
                 {purchaseDetail[0]?.purchasedProducts && purchaseDetail[0]?.purchasedProducts.length > 0 ? (
                     purchaseDetail[0].purchasedProducts.map((item) => (
                         <div key={item.productId} className="purchase-list-item">

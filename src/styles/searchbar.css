@@ -73,6 +73,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    padding-bottom: 10px;
     margin-left: 30px;
 }
 

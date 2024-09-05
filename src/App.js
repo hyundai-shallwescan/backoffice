@@ -36,12 +36,7 @@ const Layout = () => {
     const shouldHideSearchBar = isPurchaseDetail || isSalesHistory;
 
     return (
-        <div className={`content-container ${shouldHideSearchBar ? 'hide-search-bar' : ''}`}>
-            {!shouldHideSearchBar && (
-                <div className="search-bar-container">
-                    <SearchBar hideDatePicker={isProductManagement} />
-                </div>
-            )}
+        
             <div className="content">
                 <Routes>
                     <Route path="/" element={<PurchaseHistory />} />
@@ -52,7 +47,6 @@ const Layout = () => {
                     <Route path="/product-management-detail" element={<ProductManagementDetail />} /> 
                 </Routes>
             </div>
-        </div>
     );
 };
 

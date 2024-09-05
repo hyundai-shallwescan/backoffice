@@ -5,27 +5,20 @@ import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/searchbar.css';
 
 const SearchBar = ({ hideDatePicker, onSearch }) => {
-    const [username, setUsername] = useState('');
+    const [searchTerm, setSearchTerm] = useState(''); 
     const [startDate, setStartDate] = useState(new Date());
-
-    const navigate = useNavigate(); // Initialize useNavigate
-
-    // Effect to trigger search on date change
-    useEffect(() => {
-        if (onSearch) {
-            onSearch(username, startDate);
-        }
-    }, [startDate, username, onSearch]);
+    
+    const navigate = useNavigate(); 
 
     const handleSearch = () => {
-        console.log('Searching for:', username, startDate);
+        
         if (onSearch) {
-            onSearch(username, startDate);
+            onSearch(searchTerm);
         }
     };
 
     const handleAddProduct = () => {
-        navigate('/product-management-detail'); // Navigate to the product management detail page
+        navigate('/product-management-detail'); 
     };
 
     return (
@@ -33,9 +26,9 @@ const SearchBar = ({ hideDatePicker, onSearch }) => {
             <div className="search-input-container">
                 <input
                     type="text"
-                    placeholder="아이디 검색"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="검색"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     className="search-input"
                 />
                 <button onClick={handleSearch} className="search-button">검색</button>

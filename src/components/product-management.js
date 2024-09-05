@@ -1,99 +1,158 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/product-management.css'; 
+import api from '../api';
+import '../styles/product-management.css';
+import SearchBar from './search-bar';
 
 const ProductManagement = () => {
-    const [productManagementDetail, setProductManagementDetail] = useState(null);
+    const [products, setProducts] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0);
+    const [pageSize] = useState(10);
+    const [totalProducts, setTotalProducts] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('');
+
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchProductDetail = () => {
-            const data = {
-                items: [
-                    {
-                        id: 1,
-                        image: "https://via.placeholder.com/134",
-                        name: "가지",
-                        price: 15000,
-                        disabled: false
-                    },
-                    {
-                        id: 2,
-                        image: "https://via.placeholder.com/134",
-                        name: "초코송이",
-                        price: 20000,
-                        disabled: false
-                    },
-                    {
-                        id: 3,
-                        image: "https://via.placeholder.com/134",
-                        name: "상품 C",
-                        price: 5000,
-                        disabled: false
-                    }
-                ]
-            };
-            setProductManagementDetail(data);
-        };
-
-        fetchProductDetail();
-    }, []);
-
-    const handleEditProduct = (product) => {
-        navigate('/product-management-detail', { state: { product } });
+    const fetchProducts = async (searchTerm, page = currentPage, size = pageSize) => {
+        try {
+            const response = await api.get('/products', {
+                params: { name: searchTerm, page, size },
+            });
+            setProducts(response.data); 
+            setTotalProducts(response.data); 
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
     };
 
+    useEffect(() => {
+        fetchProducts(searchTerm, currentPage);
+    }, [searchTerm, currentPage]);
+
+
+    const handleSearch = (term) => {
+        setSearchTerm(term);
+        setCurrentPage(0); 
+    };
+
+    const renderPagination = () => {
+        const totalPages = Math.ceil(totalProducts / pageSize);
+        const pages = [];
+        const maxPagesToShow = 5;
+    
+        const startPage = Math.max(1, Math.min(currentPage - Math.floor(maxPagesToShow / 2), totalPages - maxPagesToShow + 1));
+        const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+    
+        pages.push(
+            <button
+                key="prev"
+                disabled={currentPage === 0}
+                onClick={() => setCurrentPage(currentPage - 1)}
+                className={`pagination-button ${currentPage === 0 ? 'disabled' : ''}`}
+            >
+                PREV
+            </button>
+        );
+    
+        for (let i = startPage; i <= endPage; i++) {
+            pages.push(
+                <button
+                    key={i}
+                    onClick={() => setCurrentPage(i)}
+                    className={`pagination-button ${currentPage === i ? 'active' : ''}`}
+                >
+                    {i}
+                </button>
+            );
+        }
+    
+        // Add Next button
+        pages.push(
+            <button
+                key="next"
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(currentPage + 1)}
+                className={`pagination-button ${currentPage === totalPages ? 'disabled' : ''}`}
+            >
+                NEXT
+            </button>
+        );
+    
+        return (
+            <div className="pagination-controls">
+                {pages}
+            </div>
+        );
+    };
+    
+
+    const handleToggleProduct = async (productId) => {
+        try {
+            await api.delete(`/admins/products/${productId}`);
+
+            setProducts(prevState =>
+                prevState.map(item =>
+                    item.productId === productId ? { ...item, isDeleted: !item.isDeleted } : item
+                )
+            );
+        } catch (error) {
+            console.error('Error toggling product status:', error);
+        }
+    };
+
+    // Navigate to add product page
     const handleAddProduct = () => {
         navigate('/product-management-detail');
     };
 
-    const handleToggleProduct = (productId) => {
-        setProductManagementDetail(prevState => ({
-            ...prevState,
-            items: prevState.items.map(item => 
-                item.id === productId ? { ...item, disabled: !item.disabled } : item
-            )
-        }));
-    };
-
-    if (!productManagementDetail) {
-        return <div>로딩 중입니다.</div>;
-    }
-
     return (
         <div className="product-management-container">
+            <div className="product-management-search-bar">
+                <SearchBar hideDatePicker onSearch={handleSearch} />
+            </div>
             <div className="product-management-list">
                 <div className="product-management-list-header">
                     <span>상품 이미지</span>
                     <span>상품명</span>
                     <span>가격</span>
                 </div>
-                {productManagementDetail.items.map((item) => (
-                    <div 
-                        key={item.id} 
-                        className={`product-management-list-item ${item.disabled ? 'disabled' : ''}`}
-                        onClick={() => handleEditProduct(item)}>
-                        <div className="product-management-item-image" style={{ backgroundImage: `url(${item.image})` }}>
-                            {item.disabled && <div className="disabled-overlay"></div>}
+
+                {products.map((item) => (
+                    <div
+                        key={item.productId}
+                        className={`product-management-list-item ${item.isDeleted ? 'disabled' : ''}`}
+                        onClick={() => navigate('/product-management-detail', { state: { product: item } })}
+                    >
+                        <div
+                            className="product-management-item-image"
+                            style={{ backgroundImage: `url(${item.thumbnailImage})` }}
+                        >
+                            {item.isDeleted && <div className="disabled-overlay"></div>}
                         </div>
-                        <div className={`product-management-item-name ${item.disabled ? 'strikethrough' : ''}`}>{item.name}</div>
+
+                        <div className={`product-management-item-name ${item.isDeleted ? 'strikethrough' : ''}`}>
+                            {item.name}
+                        </div>
+
                         <div className="product-management-item-price">
-                            <span className={`price-value ${item.disabled ? 'strikethrough' : ''}`}>
+                            <span className={`price-value ${item.isDeleted ? 'strikethrough' : ''}`}>
                                 {item.price.toLocaleString()}원
                             </span>
-                            <button 
-                                className="toggle-button" 
-                                onClick={(e) => { 
-                                    e.stopPropagation(); 
-                                    handleToggleProduct(item.id); 
-                                }}
-                            >
-                                {item.disabled ? 'O' : 'X'}
-                            </button>
                         </div>
+                        <button
+                            className="toggle-button"
+                            onClick={(e) => {
+                                e.stopPropagation(); // Prevent triggering navigation when toggling
+                                handleToggleProduct(item.productId);
+                            }}
+                        >
+                            {item.isDeleted ? '복원' : '삭제'}
+                        </button>
                     </div>
                 ))}
             </div>
+
+            {renderPagination()}
         </div>
     );
 };

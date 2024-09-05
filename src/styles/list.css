@@ -75,6 +75,10 @@
     align-items: center;
     margin-top: 20px;
 }
+.purchase-history-search-bar{
+    margin-left: 0%;
+    margin-bottom: 5%;
+}
 
 .page-number {
     font-family: 'Happiness Sans';

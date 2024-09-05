@@ -9,6 +9,13 @@
     border-collapse: collapse;
 }
 
+
+.product-management-search-bar{
+    margin-left: 0%;
+    margin-bottom: 5%
+
+}
+
 .product-management-list-header {
     display: grid;
     grid-template-columns: 150px 1fr 150px;
@@ -64,6 +71,7 @@
     pointer-events: none; 
 }
 
+
 .product-management-item-name,
 .product-management-item-price {
     font-family: 'Happiness Sans';
@@ -86,7 +94,7 @@
 }
 
 .price-value {
-    margin-right: 10px; /* Space between price and button */
+    margin-right: 10px; 
 }
 
 .toggle-button {
@@ -102,4 +110,36 @@
 
 .toggle-button:hover {
     background-color: #2c6e49; 
+}
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-button {
+    background-color: #3E8D60;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.pagination-button:hover {
+    background-color: #2c6e49;
+}
+
+.pagination-button.disabled {
+    background-color: #ccc;
+    color: #888;
+    cursor: not-allowed;
+}
+
+.pagination-button.active {
+    background-color: #1d5e40;
+    cursor: default;
 }

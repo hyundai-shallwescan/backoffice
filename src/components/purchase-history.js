@@ -4,6 +4,7 @@ import api from '../api'; // Import your custom API client
 import { formatDateToKST } from '../components/time-util'; 
 import '../styles/list.css';
 import arrowIcon from '../asset/image/arrow.svg';
+import SearchBar from './search-bar';
 
 const PurchaseHistory = () => {
     const [purchases, setPurchases] = useState([]);
@@ -49,6 +50,7 @@ const PurchaseHistory = () => {
 
     return (
         <div className="purchase-history-container">
+            <div className='purchase-history-search-bar'><SearchBar></SearchBar></div>
             {purchases.length > 0 ? (
                 purchases.map((purchase) => (
                     <div key={purchase.paymentId} className="purchase">
@@ -66,11 +68,9 @@ const PurchaseHistory = () => {
                         </div>
                     </div>
                 ))
-            ) : (
-                <p>No purchases available.</p>
-            )}
+            ) : null}
         </div>
-    );
+    );    
 };
 
 export default PurchaseHistory;
