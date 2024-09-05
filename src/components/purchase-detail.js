@@ -48,12 +48,12 @@ const PurchaseDetail = () => {
             </div>
             <div className="purchase-list-letter"><h2>구매내역</h2></div>
             <div className="purchase-list">
-                <div className="purchase-list-header">
+                {/* <div className="purchase-list-header">
                     <span>상품 이미지</span>
                     <span>상품명</span>
                     <span>수량</span>
                     <span>가격</span>
-                </div>
+                </div> */}
                 {purchaseDetail[0]?.purchasedProducts && purchaseDetail[0]?.purchasedProducts.length > 0 ? (
                     purchaseDetail[0].purchasedProducts.map((item) => (
                         <div key={item.productId} className="purchase-list-item">

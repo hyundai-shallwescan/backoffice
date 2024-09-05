@@ -14,6 +14,7 @@
     box-shadow: 0px 4px 1px rgba(0, 0, 0, 0.1);
     padding: 20px; /* Increase padding to create more space */
     margin-bottom: 30px;
+
 }
 
 .purchase-list-letter {
@@ -52,15 +53,15 @@
 
 .purchase-list-header {
     display: flex;
-    justify-content: space-between;
     padding: 10px 0;
-    margin-left: 15px;
     font-weight: 700;
     margin-bottom: 10px;
-    color: #9B9E9C; 
-}
+    color: #9B9E9C;
+    text-align: right;
+    }
 
 .purchase-list-header span {
+
     font-size: 22px; /* Increase header font size */
 }
 
@@ -90,7 +91,8 @@
     font-size: 24px; /* Increase font size for item details */
     color: #141414;
     flex: 1;
-    text-align: right;
+    text-align: center;
+    
     padding-right: 10px;
 }
 
@@ -104,10 +106,9 @@
         flex-direction: column;
         align-items: stretch;
         background-color: #ffffff;
-        padding: 15px; /* Reduce padding for smaller screens */
+        padding: 15px;
         height: auto;
         box-shadow: 0px 4px 4px -2px rgba(0, 0, 0, 0.1); 
-        margin-bottom: 30px;
     }
     
     .purchase-list-header {
@@ -119,7 +120,7 @@
     }
 
     .item-name,
-    .item-quantity{
+    .item-quantity {
         display: none;
     }
 
@@ -127,28 +128,35 @@
         display: flex;
         flex-direction: column;
         margin-right: 10px;
+        flex-grow: 1; /* Ensure it takes the available space */
     }
 
-    .mobile-item-name{
+    .mobile-item-name {
         margin-bottom: 10px;
         font-size: 20px;
+        word-wrap: break-word; /* Ensure long names wrap to the next line */
     }
 
-    .item-name {
-        margin-bottom: 5px; /* Adds space between item name and quantity, adjust as needed */
+    .item-price {
+        font-size: 18px;
+        text-align: right; /* Align price to the right */
+        flex-shrink: 0; /* Prevent the price from shrinking */
+        white-space: nowrap; /* Prevent wrapping */
+        width: 80px; /* Set a fixed width for consistent alignment */
     }
-    .item-price{
-        padding-right: 0;
-    }
-    
-    .purchase-list-letter {
-        font-size: 18px; /* Adjust font size for smaller screens */
-        margin-bottom: 10px;
+
+    .item-image {
+        width: 90px;  /* Fix width */
+        height: 100px; /* Fix height */
+        flex-shrink: 0; /* Prevent shrinking */
+        background-size: cover;
+        background-position: center;
+        margin-right: 20px;
     }
 
     .purchase-summary > div {
-        margin-bottom: 10px; 
-        font-size: 20px; 
+        margin-bottom: 10px;
+        font-size: 20px;
     }
 
     .purchase-id-label,
@@ -163,7 +171,7 @@
     .purchase-id-value,
     .purchase-total-value,
     .purchase-date-value {
-        color: #141414; 
+        color: #141414;
         font-size: 20px;
     }
 
@@ -171,20 +179,9 @@
     .purchase-total,
     .purchase-date {
         display: flex;
-        justify-content: space-between; 
+        justify-content: space-between;
         font-size: 15px;
-        align-items: center; 
-    }
-    .item-price{
-        font-size: 18px;
-    }
-
-    .item-image {
-        width: 90px;  /* Set width to match larger image */
-        height: 100px; /* Set height to match larger image */
-        background-size: cover;
-        background-position: center;
-        margin-right: 20px;
+        align-items: center;
     }
 
     .purchase-date {
