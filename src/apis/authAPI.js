@@ -16,10 +16,7 @@ export const login = async (loginId, password) => {
     const response = await instance.post('/members/login', {
         loginId,
         password,
-    }, {
-        headers: {
-            'FCM-TOKEN': 'null' }
-        });
+    });
     return response.headers['authorization'];
 };
 
