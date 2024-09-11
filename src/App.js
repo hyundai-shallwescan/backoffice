@@ -1,53 +1,55 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Header from './components/header';
-import Sidebar from './components/side-bar';
-import SearchBar from './components/search-bar';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import PurchaseHistory from './components/purchase-history';
 import PurchaseDetail from './components/purchase-detail';
 import SalesHistory from './components/dash-board';
 import ProductManagement from './components/product-management';
-import ProductManagementDetail from './components/product-management-detail';  // Import the new component
+import ProductManagementDetail from './components/product-management-detail';
+import Login from './pages/login/Login';
 import './styles/app.css';
 import './styles/purchase-detail.css';
+import { getCookie } from './common/Cookie';
 
-const App = () => (
-    <Router>
-        <div className="app">
-            <Header />
-            <div className="main-container">
-                <div className="sidebar">
-                    <Sidebar />
-                </div>
-                <div className="content-container">
-                    <Layout />
-                </div>
-            </div>
-        </div>
-    </Router>
-);
+/**
+ * App.js
+ * @author 구지웅
+ * @since 2024.09.04
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일      	 수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.04  구지웅        최초 생성 
+ * 2024.09.10  정은지        로그인 페이지 추가
+ * </pre>
+ */
+const App = () => {
+    const navigate = useNavigate();
 
-const Layout = () => {
-    const location = useLocation();
-    const isPurchaseDetail = location.pathname.startsWith('/purchase-detail');
-    const isSalesHistory = location.pathname.startsWith('/sales-history');
-    const isProductManagement = location.pathname.startsWith('/product-management');
+    useEffect(() => {
+        const id = getCookie('loginId');
+        if (!id) {
+            navigate('/login');
+        } 
+    }, [navigate]);
 
-    const shouldHideSearchBar = isPurchaseDetail || isSalesHistory;
-
-    return (
-        
-            <div className="content">
-                <Routes>
-                    <Route path="/" element={<PurchaseHistory />} />
-                    <Route path="/payment-history" element={<PurchaseHistory />} />
-                    <Route path="/purchase-detail/:id" element={<PurchaseDetail />} />
-                    <Route path="/sales-history" element={<SalesHistory />} />
-                    <Route path="/product-management" element={<ProductManagement />} />
-                    <Route path="/product-management-detail" element={<ProductManagementDetail />} /> 
-                </Routes>
-            </div>
+    return ( 
+        <Routes>
+            <Route path="/" element={<PurchaseHistory />} />
+            <Route path="/payment-history" element={<PurchaseHistory />} />
+            <Route path="/purchase-detail/:id" element={<PurchaseDetail />} />
+            <Route path="/sales-history" element={<SalesHistory />} />
+            <Route path="/product-management" element={<ProductManagement />} />
+            <Route path="/product-management-detail" element={<ProductManagementDetail />} /> 
+            <Route path="/login" element={<Login />} />
+        </Routes>
     );
 };
 
-export default App;
+const RootApp = () => (
+    <Router>
+        <App />
+    </Router>
+);
+
+export default RootApp;

@@ -53,13 +53,18 @@ const ProductManagementDetail = () => {
         if (productDetailImage) formData.append('descriptionImage', productDetailImage);
     
         try {
+            const token = localStorage.getItem('token');
             if (productData) {
                 await api.patch(`/admins/products/${productData.productId}`, formData, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
+                    headers: { 'Content-Type': 'multipart/form-data',
+                                Authorization: `Bearer ${token}`
+                 }
                 });
             } else {
                 await api.post('/admins/products', formData, {
-                    headers: { 'Content-Type': 'multipart/form-data' }
+                    headers: { 'Content-Type': 'multipart/form-data',
+                                Authorization: `Bearer ${token}`            
+                }
                 });
             }
             navigate('/product-management');

@@ -4,6 +4,7 @@ import '../styles/dash-board.css';
 import { Line, Pie, Doughnut } from 'react-chartjs-2';
 import 'chart.js/auto';
 import downArrow from '../asset/image/down-arrow.svg';
+import MainLayout from '../layouts/MainLayout';
 
 
 const AdminDashboard = () => {
@@ -49,7 +50,12 @@ const AdminDashboard = () => {
     const [selectedMonth, setSelectedMonth] = useState('08');
 
     useEffect(() => {
+        const token = localStorage.getItem('token');
+        console.log(token);
         api.get(`/admins/sales`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            },
             params: {
                 year: selectedYear,
                 month: selectedMonth
@@ -114,6 +120,7 @@ const AdminDashboard = () => {
     }, [selectedYear, selectedMonth]);
 
     return (
+        <MainLayout>
         <div className="container-fluid admin-dashboard">
             <div className="row">
                 <div className="dash-board-header">
@@ -182,6 +189,7 @@ const AdminDashboard = () => {
                 </div>
             </div>
         </div>
+        </MainLayout>
     );
 };
 
