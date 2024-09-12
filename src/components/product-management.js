@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
+import { getCookie } from '../common/Cookie';
+import MainLayout from '../layouts/MainLayout';
 import '../styles/product-management.css';
 import SearchBar from './search-bar';
 
@@ -12,6 +14,13 @@ const ProductManagement = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = getCookie('token');
+        if (token) {
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        }
+    }, []);
 
     const fetchProducts = async (searchTerm, page = currentPage, size = pageSize) => {
         try {
@@ -106,6 +115,7 @@ const ProductManagement = () => {
     };
 
     return (
+        <MainLayout>
         <div className="product-management-container">
             <div className="product-management-search-bar">
                 <SearchBar hideDatePicker onSearch={handleSearch} />
@@ -154,6 +164,7 @@ const ProductManagement = () => {
 
             {renderPagination()}
         </div>
+        </MainLayout>
     );
 };
 

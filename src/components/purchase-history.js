@@ -5,6 +5,7 @@ import { formatDateToKST } from '../components/time-util';
 import '../styles/list.css';
 import arrowIcon from '../asset/image/arrow.svg';
 import SearchBar from './search-bar';
+import MainLayout from '../layouts/MainLayout';
 
 const PurchaseHistory = () => {
     const [purchases, setPurchases] = useState([]);
@@ -49,6 +50,7 @@ const PurchaseHistory = () => {
     };
 
     return (
+        <MainLayout>
         <div className="purchase-history-container">
             <div className='purchase-history-search-bar'><SearchBar></SearchBar></div>
             {purchases.length > 0 ? (
@@ -70,6 +72,7 @@ const PurchaseHistory = () => {
                 ))
             ) : null}
         </div>
+        </MainLayout>
     );    
 };
 

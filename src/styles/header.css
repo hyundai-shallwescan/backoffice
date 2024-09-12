@@ -19,6 +19,7 @@
   .logo-container {
     display: flex;
     align-items: center;
+    cursor: pointer;
   }
   
   .logo {
@@ -36,6 +37,8 @@
   }
   
   .admin {
+    display: flex;
+    align-items: center;
     margin-right: 40px; 
     font-size: 20px;
   }
@@ -78,7 +81,14 @@
     .admin {
         margin-left: 20px;
         font-size: 25px;
+        cursor: pointer;
     }
+
+    .login-id {
+      font-family: 'Happiness Sans';
+      font-weight: 1000;
+      margin-right: 20px; 
+  }  
 
     .logout-icon {
         margin-right:10px; 

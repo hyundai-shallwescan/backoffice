@@ -1,14 +1,13 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import '../styles/purchase-detail.css'; 
+import MainLayout from '../layouts/MainLayout';
 
 const PurchaseDetail = () => {
     const location = useLocation();
     const { purchaseDetail } = location.state || {};
     const { userName } = location.state || {};
     const { createdAt } = location.state || {};
-
-
 
     console.log();
 
@@ -30,6 +29,7 @@ const PurchaseDetail = () => {
     const formattedTime = formatDate(purchaseDetail.paymentCreatedAt);
 
     return (
+        <MainLayout>
         <div className="purchase-detail-container">
             <div className="purchase-summary">
                 <div className="purchase-id">
@@ -69,6 +69,7 @@ const PurchaseDetail = () => {
                 )}
             </div>
         </div>
+        </MainLayout>
     );
 };
 

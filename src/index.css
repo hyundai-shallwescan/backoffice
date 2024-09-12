@@ -4,3 +4,27 @@
     font-weight: normal;
     font-style: normal;
 }
+
+/* Regular */
+@font-face {
+    font-family: 'Happiness Sans';
+    src: url('../asset/font/regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Bold */
+@font-face {
+    font-family: 'Happiness Sans';
+    src: url('../asset/font/bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Title */
+@font-face {
+    font-family: 'Happiness Sans';
+    src: url('../asset/font/title.ttf') format('truetype');
+    font-weight: 1000; 
+    font-style: normal;
+}
