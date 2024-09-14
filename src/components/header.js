@@ -32,7 +32,7 @@ const Header = () => {
 }, []);
 
   const handleLogout = () => {
-      removeCookie('token');
+      removeCookie('accessToken');
       removeCookie('loginId');
       setIsLoggedIn(false);
       navigate('/login');

@@ -50,14 +50,13 @@ const AdminDashboard = () => {
     const [selectedMonth, setSelectedMonth] = useState('08');
 
     useEffect(() => {
-        const token = getCookie('token');
+        const token = getCookie('accessToken');
         if (token) {
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
-        console.log(token);
         api.get(`/admins/sales`, {
             headers: {
-                Authorization: `Bearer ${token}`
+                authorization: `Bearer ${token}`
             },
             params: {
                 year: selectedYear,

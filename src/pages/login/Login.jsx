@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { setCookie } from '../../common/Cookie';
-import logo from '../../asset/image/logo.svg'; 
-import logoName from '../../asset/image/logo-name.svg'; 
-import { login } from '../../apis/authAPI'; 
-import axios from 'axios';
+import logo from '../../asset/image/logo.svg';
+import logoName from '../../asset/image/logo-name.svg';
+import { login } from '../../apis/authAPI';
+import { Modal } from '../../components/modal/Modal';
 import {
   LoginContainer,
   LogoContainer,
@@ -16,7 +15,7 @@ import {
   InputGroup,
   Input,
   LoginButton,
-} from './Login.styled'; 
+} from './Login.styled';
 
 /**
  * 로그인 페이지
@@ -34,62 +33,74 @@ const Login = () => {
 
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [error, setError] = useState('');
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-        try {
-          const token = await login(loginId, password); 
-          console.log(token);
-          if (token) {
-            const accessToken = token.split(' ')[1];
-            axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    try {
+      const { accessToken, refreshToken } = await login(loginId, password);
+      console.log("response headers: ", refreshToken);
 
-            // 쿠키 저장 
-            setCookie('token', accessToken);
-            setCookie('loginId', loginId);
-            
-            window.location.href = '/';
-          } else {
-            setError('토큰을 가져오지 못했습니다.');
-          }
-        } catch (error) {
-          setError('로그인 실패. 다시 시도해주세요.');
-        }
-    };
+      console.log("accessToken: " + accessToken);
+      console.log("refreshToken: " + refreshToken);
 
-      return (
-        <LoginContainer>
-          <LogoContainer>
-            <TitleLogo src={logoName} /> 
-            <Logo src={logo} />
-          </LogoContainer>
-        <LoginBox>
-          <LoginTitle>관리자 로그인</LoginTitle>
-          <Form onSubmit={handleLogin}>
-            <InputGroup>
-              <Input
-                type="text"
-                id="id"
-                placeholder="아이디"
-                value={loginId}
-                onChange={(e) => setLoginId(e.target.value)}
-              />
-            </InputGroup>
-            <InputGroup>
-              <Input
-                type="password"
-                id="password"
-                placeholder="패스워드"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </InputGroup>
-            <LoginButton type="submit">Login</LoginButton>
-          </Form>
-        </LoginBox>
-      </LoginContainer>  
-      );
-  }
+      // 액세스 토큰 쿠키에 저장
+      setCookie('accessToken', accessToken.split(' ')[1])
+
+      // 리프레쉬 토큰 로컬 스토리지에 저장
+      localStorage.setItem('refreshToken', refreshToken.split(' ')[1]);
+
+      // 로그인 아이디 쿠키에 저장
+      setCookie('loginId', loginId);
+
+      window.location.href = '/';
+    } catch (error) {
+      console.log(error)
+      const errorMessage = error.response?.data?.message
+      setError(errorMessage);
+      setIsModalOpen(true);
+    }
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  return (
+    <LoginContainer>
+      <LogoContainer>
+        <TitleLogo src={logoName} />
+        <Logo src={logo} />
+      </LogoContainer>
+      <LoginBox>
+        <LoginTitle>관리자 로그인</LoginTitle>
+        <Form onSubmit={handleLogin}>
+          <InputGroup>
+            <Input
+              type="text"
+              id="id"
+              placeholder="아이디"
+              value={loginId}
+              onChange={(e) => setLoginId(e.target.value)}
+            />
+          </InputGroup>
+          <InputGroup>
+            <Input
+              type="password"
+              id="password"
+              placeholder="패스워드"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </InputGroup>
+          <LoginButton type="submit">Login</LoginButton>
+        </Form>
+      </LoginBox>
+
+      <Modal isOpen={isModalOpen} onClose={closeModal} message={error} />
+    </LoginContainer>
+  );
+}
 export default Login;
