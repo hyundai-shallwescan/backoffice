@@ -4,15 +4,13 @@ import api from '../api';
 import '../styles/product-management-detail.css';
 import { getCookie } from '../common/Cookie';
 
-const generateRandomBarcode = () => {
-    return Math.random().toString(36).substring(2, 12).toUpperCase(); // Random 10-character string
-};
 
 const ProductManagementDetail = () => {
-    const [productImage, setProductImage] = useState(null); // Use null to indicate no file selected
+    const [productImage, setProductImage] = useState(null); 
     const [productName, setProductName] = useState('');
     const [productPrice, setProductPrice] = useState('');
-    const [productDetailImage, setProductDetailImage] = useState(null); // Use null to indicate no file selected
+    const [productBarcode, setBarcode] = useState('');
+    const [productDetailImage, setProductDetailImage] = useState(null); 
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,11 +24,12 @@ const ProductManagementDetail = () => {
         if (productData) {
             setProductName(productData.name);
             setProductPrice(productData.price);
+            setBarcode(productData.barcode);
         }
     }, [productData]);
 
     const isFormComplete = () => {
-        return productName && productPrice && productImage && productDetailImage;
+        return productName && productPrice && productBarcode && productImage && productDetailImage;
     };
 
     const handleSubmit = async () => {
