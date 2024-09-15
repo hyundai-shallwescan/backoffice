@@ -39,12 +39,11 @@ const ProductManagementDetail = () => {
         }
     
         const formData = new FormData();
-        const barcode = generateRandomBarcode();
     
         const productInfo = JSON.stringify({
             name: productName,
             price: parseInt(productPrice, 10),
-            barcode: barcode
+            barcode: productBarcode
         });
     
         if (productData) {
