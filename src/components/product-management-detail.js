@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import api from '../api';
 import '../styles/product-management-detail.css';
+import { getCookie } from '../common/Cookie';
 
 const generateRandomBarcode = () => {
     return Math.random().toString(36).substring(2, 12).toUpperCase(); // Random 10-character string
@@ -18,6 +19,10 @@ const ProductManagementDetail = () => {
     const productData = location.state?.product || null;
 
     useEffect(() => {
+        const token = getCookie('token');
+        if (token) {
+            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        }
         if (productData) {
             setProductName(productData.name);
             setProductPrice(productData.price);
