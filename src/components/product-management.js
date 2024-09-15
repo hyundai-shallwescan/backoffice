@@ -16,7 +16,7 @@ const ProductManagement = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const token = getCookie('token');
+        const token = getCookie('accessToken');
         if (token) {
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }

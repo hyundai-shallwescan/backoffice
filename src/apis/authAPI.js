@@ -17,10 +17,12 @@ export const login = async (loginId, password) => {
         loginId,
         password,
     });
-    return response.headers['authorization'];
+    const accessToken = response.headers['authorization'];
+    const refreshToken = response.headers['x-refresh-token'];
+    return { accessToken, refreshToken };
 };
 
 export const logout = async () => {
     const response = await instance.post('/members/logout');
     return response.data;
-};  
+};
