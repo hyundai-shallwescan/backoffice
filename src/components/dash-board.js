@@ -6,6 +6,7 @@ import 'chart.js/auto';
 import downArrow from '../asset/image/down-arrow.svg';
 import MainLayout from '../layouts/MainLayout';
 import { getCookie } from '../common/Cookie';
+import { instance } from '../apis';
 
 const AdminDashboard = () => {
     const [dailySalesData, setDailySalesData] = useState({
@@ -54,7 +55,7 @@ const AdminDashboard = () => {
         if (token) {
             api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
-        api.get(`/admins/sales`, {
+        instance.get(`/admins/sales`, {
             headers: {
                 authorization: `Bearer ${token}`
             },

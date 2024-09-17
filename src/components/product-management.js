@@ -5,6 +5,7 @@ import { getCookie } from '../common/Cookie';
 import MainLayout from '../layouts/MainLayout';
 import '../styles/product-management.css';
 import SearchBar from './search-bar';
+import { instance } from '../apis';
 
 const ProductManagement = () => {
     const [products, setProducts] = useState([]);
@@ -18,13 +19,13 @@ const ProductManagement = () => {
     useEffect(() => {
         const token = getCookie('accessToken');
         if (token) {
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
     }, []);
 
     const fetchProducts = async (searchTerm, page = currentPage, size = pageSize) => {
         try {
-            const response = await api.get('/products', {
+            const response = await instance.get('/products', {
                 params: { name: searchTerm, page, size },
             });
             setProducts(response.data); 
@@ -97,7 +98,7 @@ const ProductManagement = () => {
 
     const handleToggleProduct = async (productId) => {
         try {
-            await api.delete(`/admins/products/${productId}`);
+            await instance.delete(`/admins/products/${productId}`);
 
             setProducts(prevState =>
                 prevState.map(item =>

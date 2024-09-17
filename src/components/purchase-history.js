@@ -6,6 +6,9 @@ import '../styles/list.css';
 import arrowIcon from '../asset/image/arrow.svg';
 import SearchBar from './search-bar';
 import MainLayout from '../layouts/MainLayout';
+import { instance } from '../apis';
+import { getCookie } from '../common/Cookie';
+import { EventSourcePolyfill, NativeEventSource } from "event-source-polyfill";
 
 const PurchaseHistory = () => {
     const [purchases, setPurchases] = useState([]);
@@ -13,13 +16,23 @@ const PurchaseHistory = () => {
     const [size, setSize] = useState('10');
     const [startDate, setStartDate] = useState(new Date());
     const navigate = useNavigate();
+    
+
 
     useEffect(() => {
-        const baseURL = api.defaults.baseURL;
-
+        const EventSource = EventSourcePolyfill || NativeEventSource;
+        const baseURL = process.env.REACT_APP_API_URL;
         const eventSourceURL = `${baseURL}/admins/payments/members?page=${page}&size=${size}&year=${startDate.getFullYear()}&month=${startDate.getMonth() + 1}&day=${startDate.getDate()}`;
+        const token = getCookie('accessToken');
+        
+        const eventSource = new EventSource(eventSourceURL,{
+            withCredentials : true,
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        });
+        console.log(token); 
 
-        const eventSource = new EventSource(eventSourceURL);
 
         eventSource.onmessage = (event) => {
             const payment = JSON.parse(event.data);
