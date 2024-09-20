@@ -33,7 +33,6 @@ const PurchaseHistory = () => {
             const payment = JSON.parse(event.data);
             payment.createdAt = formatDateToKST(payment.createdAt);
             
-            // Add payment only if it has not been processed yet
             setPurchases((prevPurchases) => {
                 if (!processedPayments.has(payment.paymentId)) {
                     processedPayments.add(payment.paymentId);
@@ -45,11 +44,11 @@ const PurchaseHistory = () => {
         };
 
         eventSource.onerror = () => {
-            eventSource.close(); // Close the connection if an error occurs
+            eventSource.close(); 
         };
 
         return () => {
-            eventSource.close(); // Clean up the event source connection when the component unmounts
+            eventSource.close(); 
         };
     }, [page, size, startDate]);
 
@@ -73,7 +72,7 @@ const PurchaseHistory = () => {
         <MainLayout>
             <div className="purchase-history-container">
                 <div className='purchase-history-search-bar'>
-                    <SearchBar />
+                <SearchBar hideDatePicker={true} hideSearchInput={true} />
                 </div>
                 {purchases.length > 0 ? (
                     purchases.map((purchase) => (

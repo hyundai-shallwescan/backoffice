@@ -32,7 +32,7 @@ const SearchBar = ({ hideDatePicker, onSearch }) => {
                     className="search-input"
                 />
                 <button onClick={handleSearch} className="search-button">검색</button>
-                {hideDatePicker && (
+                {!hideDatePicker && (
                     <button onClick={handleAddProduct} className="add-product-button">+</button>
                 )}
             </div>

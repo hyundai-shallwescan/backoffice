@@ -122,6 +122,7 @@
     .purchase-history-container {
         box-sizing: border-box;
     }
+    
 
     .purchase {
         display: flex;
