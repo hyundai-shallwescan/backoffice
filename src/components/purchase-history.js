@@ -72,7 +72,7 @@ const PurchaseHistory = () => {
         <MainLayout>
             <div className="purchase-history-container">
                 <div className='purchase-history-search-bar'>
-                <SearchBar hideDatePicker={true} hideSearchInput={true} />
+                <SearchBar hideDatePicker={true} />
                 </div>
                 {purchases.length > 0 ? (
                     purchases.map((purchase) => (
