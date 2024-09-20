@@ -3,6 +3,19 @@ import { useLocation } from 'react-router-dom';
 import '../styles/purchase-detail.css'; 
 import MainLayout from '../layouts/MainLayout';
 
+
+/**
+ * PurchaseDetail Component
+ * @author 구지웅
+ * @since 2024.08.31
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일      	 수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.03  구지웅        최초 생성
+ * </pre>
+ */
 const PurchaseDetail = () => {
     const location = useLocation();
     const { purchaseDetail } = location.state || {};

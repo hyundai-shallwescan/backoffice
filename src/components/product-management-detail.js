@@ -4,7 +4,18 @@ import { instance } from '../apis';
 import '../styles/product-management-detail.css';
 import { getCookie } from '../common/Cookie';
 
-
+/**
+ * Product Management Detail Component
+ * @author 구지웅
+ * @since 2024.08.31
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일      	 수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.01  구지웅        최초 생성
+ * </pre>
+ */
 const ProductManagementDetail = () => {
     const [productImage, setProductImage] = useState(null); 
     const [productName, setProductName] = useState('');

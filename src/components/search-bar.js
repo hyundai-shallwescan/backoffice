@@ -4,6 +4,19 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../styles/searchbar.css';
 
+/**
+ * SearchBar Component
+ * @author 구지웅
+ * @since 2024.08.31
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일      	 수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.03  구지웅        최초 생성
+ * 2024.09.20  구지웅        hideDatePicker 추가
+ * </pre>
+ */
 const SearchBar = ({ hideDatePicker, onSearch }) => {
     const [searchTerm, setSearchTerm] = useState(''); 
     const [startDate, setStartDate] = useState(new Date());

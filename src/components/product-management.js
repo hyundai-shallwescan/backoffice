@@ -6,6 +6,19 @@ import MainLayout from '../layouts/MainLayout';
 import '../styles/product-management.css';
 import SearchBar from './search-bar';
 
+/**
+ * ProductManagement Component
+ * @author 구지웅
+ * @since 2024.08.31
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일      	 수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.01  구지웅        최초 생성
+ * </pre>
+ */
+
 const ProductManagement = () => {
     const [products, setProducts] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);

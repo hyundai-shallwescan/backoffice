@@ -9,6 +9,21 @@ import { instance } from '../apis';
 import { getCookie } from '../common/Cookie';
 import { EventSourcePolyfill, NativeEventSource } from "event-source-polyfill";
 
+
+/**
+ * PurchaseHistory Component
+ * @author 구지웅
+ * @since 2024.08.31
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일      	 수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.03  구지웅        최초 생성
+ * 2024.09.03  구지웅        SearchBar 컴포넌트 DatePicker 숨기기
+ * </pre>
+ */
+
 const PurchaseHistory = () => {
     const [purchases, setPurchases] = useState([]);
     const [page, setPage] = useState('0');
