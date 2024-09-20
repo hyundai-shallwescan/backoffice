@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import api from '../api';
+import { instance } from '../apis';
 import '../styles/product-management-detail.css';
 import { getCookie } from '../common/Cookie';
 
@@ -17,10 +17,6 @@ const ProductManagementDetail = () => {
     const productData = location.state?.product || null;
 
     useEffect(() => {
-        const token = getCookie('accessToken');
-        if (token) {
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        }
         if (productData) {
             setProductName(productData.name);
             setProductPrice(productData.price);
@@ -58,15 +54,13 @@ const ProductManagementDetail = () => {
         try {
             const token = localStorage.getItem('token');
             if (productData) {
-                await api.patch(`/admins/products/${productData.productId}`, formData, {
-                    headers: { 'Content-Type': 'multipart/form-data',
-                                Authorization: `Bearer ${token}`
-                 }
+                await instance.patch(`/admins/products/${productData.productId}`, formData, {
+                    headers: { 'Content-Type': 'multipart/form-data'
+            }
                 });
             } else {
-                await api.post('/admins/products', formData, {
-                    headers: { 'Content-Type': 'multipart/form-data',
-                                Authorization: `Bearer ${token}`            
+                await instance.post('/admins/products', formData, {
+                    headers: { 'Content-Type': 'multipart/form-data'
                 }
                 });
             }

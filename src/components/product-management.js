@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../api';
+import { instance } from '../apis';
 import { getCookie } from '../common/Cookie';
 import MainLayout from '../layouts/MainLayout';
 import '../styles/product-management.css';
 import SearchBar from './search-bar';
-import { instance } from '../apis';
 
 const ProductManagement = () => {
     const [products, setProducts] = useState([]);
@@ -16,12 +15,6 @@ const ProductManagement = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const token = getCookie('accessToken');
-        if (token) {
-            instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        }
-    }, []);
 
     const fetchProducts = async (searchTerm, page = currentPage, size = pageSize) => {
         try {

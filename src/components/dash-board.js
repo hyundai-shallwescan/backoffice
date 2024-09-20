@@ -48,79 +48,63 @@ const AdminDashboard = () => {
     });
 
     const [selectedYear, setSelectedYear] = useState('2024');
-    const [selectedMonth, setSelectedMonth] = useState('08');
+    const [selectedMonth, setSelectedMonth] = useState('8');
 
     useEffect(() => {
-        const token = getCookie('accessToken');
-        if (token) {
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        }
-        instance.get(`/admins/sales`, {
-            headers: {
-                authorization: `Bearer ${token}`
-            },
-            params: {
-                year: selectedYear,
-                month: selectedMonth
-            }
-        })
-        .then(response => {
-            const data = response.data[0]; // Access the first element of the array
-    
-            console.log('Fetched data:', data);
-    
-            const labels = data.dailySaleDtoList.map(sale => sale.day);
-            const totalAmounts = data.dailySaleDtoList.map(sale => sale.totalAmount);
-    
-            setDailySalesData({
-                labels: labels,
-                datasets: [{
-                    label: '일별 매출',
-                    data: totalAmounts,
-                    backgroundColor: 'rgba(40, 167, 69, 0.2)',
-                    borderColor: '#28a745',
-                    borderWidth: 2,
-                    fill: true,
-                }],
-            });
-    
-            setAgeSalesData({
-                labels: ['10-19', '20-29', '30-39', '40-49', '50-59', '60+'],
-                datasets: [{
-                    data: [
-                        data.ageRange1Ratio,
-                        data.ageRange2Ratio,
-                        data.ageRange3Ratio,
-                        data.ageRange4Ratio,
-                        data.ageRange5Ratio,
-                        data.ageRangeSixtyToLastRatio
-                    ],
-                    backgroundColor: [
-                        '#F294A5',
-                        '#024873',
-                        '#D9D1C7',
-                        '#262626',
-                        '#F2B705',
-                        '#3E8D60'
-                    ]
-                }],
-            });
-    
-            setGenderSalesData({
-                labels: ['남성', '여성'],
-                datasets: [{
-                    data: [data.maleRatio, data.femaleRatio],
-                    backgroundColor: [
-                        '#024873',
-                        '#F2B705'
-                    ]
-                }],
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching sales data:', error);
+        // Replace API call with dummy data
+        const dummyData = generateDummySalesData();
+        setDailySalesData(dummyData);
+
+        // You can set the rest of the sales data if needed or keep it as is.
+        setAgeSalesData({
+            labels: ['10-19', '20-29', '30-39', '40-49', '50-59', '60+'],
+            datasets: [{
+                data: [10, 20, 30, 25, 15, 5], // Example static data
+                backgroundColor: [
+                    '#F294A5',
+                    '#024873',
+                    '#D9D1C7',
+                    '#262626',
+                    '#F2B705',
+                    '#3E8D60'
+                ]
+            }],
+        });
+
+        setGenderSalesData({
+            labels: ['남성', '여성'],
+            datasets: [{
+                data: [60, 40], // Example static data
+                backgroundColor: [
+                    '#024873',
+                    '#F2B705'
+                ]
+            }],
         });
     }, [selectedYear, selectedMonth]);
+
+    const generateDummySalesData = () => {
+        const labels = Array.from({ length: 30 }, (_, i) => (i + 1).toString()); // Days of the month
+        const data = [
+            550000, 545000, 548000, 530000, 535000,
+            550000, 540000, 538000, 536000, 560000,
+            550000, 550000, 555000, 570000, 580000,
+            570000, 590000, 580000, 575000, 580000,
+            595000, 560000, 580000, 595000, 600000,
+            565000, 570000, 556000, 565000, 575000,
+            590000, 510000
+        ];           return {
+            labels: labels,
+            datasets: [{
+                label: '일별 매출',
+                data: data,
+                backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                borderColor: '#28a745',
+                borderWidth: 2,
+                fill: true,
+            }],
+        };
+    };
 
     return (
         <MainLayout>

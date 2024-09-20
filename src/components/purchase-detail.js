@@ -39,7 +39,7 @@ const PurchaseDetail = () => {
                 <div className="purchase-total">
                     <span className="purchase-total-label">총 결제 금액</span>
                     <span className="purchase-total-value">
-                        {formatNumber(purchaseDetail[0].totalAmountSum)}원
+                        {formatNumber(purchaseDetail.totalAmountSum)}원
                     </span>
                 </div>
                 <div className="purchase-date">
@@ -49,8 +49,8 @@ const PurchaseDetail = () => {
             </div>
             <div className="purchase-list-letter"><h2>구매내역</h2></div>
             <div className="purchase-list">
-                {purchaseDetail[0]?.purchasedProducts && purchaseDetail[0]?.purchasedProducts.length > 0 ? (
-                    purchaseDetail[0].purchasedProducts.map((item) => (
+                {purchaseDetail.purchasedProducts && purchaseDetail?.purchasedProducts.length > 0 ? (
+                    purchaseDetail.purchasedProducts.map((item) => (
                         <div key={item.productId} className="purchase-list-item">
                             <div className="item-image" style={{ backgroundImage: `url(${item.thumbnailImage})` }}></div>
                             <div className="item-name">{item.productName || 'N/A'}</div>

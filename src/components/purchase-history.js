@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../api'; // Import your custom API client
 import { formatDateToKST } from '../components/time-util'; 
 import '../styles/list.css';
 import arrowIcon from '../asset/image/arrow.svg';
@@ -9,6 +8,7 @@ import MainLayout from '../layouts/MainLayout';
 import { instance } from '../apis';
 import { getCookie } from '../common/Cookie';
 import { EventSourcePolyfill, NativeEventSource } from "event-source-polyfill";
+import api from '../api';
 
 const PurchaseHistory = () => {
     const [purchases, setPurchases] = useState([]);
@@ -18,38 +18,39 @@ const PurchaseHistory = () => {
     const navigate = useNavigate();
     
 
-
     useEffect(() => {
         const EventSource = EventSourcePolyfill || NativeEventSource;
         const baseURL = process.env.REACT_APP_API_URL;
         const eventSourceURL = `${baseURL}/admins/payments/members?page=${page}&size=${size}&year=${startDate.getFullYear()}&month=${startDate.getMonth() + 1}&day=${startDate.getDate()}`;
         const token = getCookie('accessToken');
-        
-        const eventSource = new EventSource(eventSourceURL,{
-            withCredentials : true,
+    
+        const eventSource = new EventSource(eventSourceURL, {
             headers: {
                 'Authorization': 'Bearer ' + token
             }
         });
-        console.log(token); 
-
-
+    
         eventSource.onmessage = (event) => {
             const payment = JSON.parse(event.data);
-            payment.createdAt = formatDateToKST(payment.createdAt); 
-            setPurchases((prevPurchases) => [payment, ...prevPurchases]);
+            payment.createdAt = formatDateToKST(payment.createdAt);
+    
+            setPurchases((prevPurchases) => {
+                const updatedPurchases = [payment, ...prevPurchases];
+                return updatedPurchases.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            });
         };
-
+    
         return () => {
             eventSource.close();
         };
     }, [page, size, startDate]);
+    
 
     const handleArrowClick = async (purchase) => {
         try {
-            const response = await api.get(`/admins/payments/${purchase.paymentId}`);
+            const response = await instance.get(`/admins/payments/${purchase.paymentId}`);
             const purchaseDetail = response.data;
-
+            console.log(purchaseDetail.paymentId)
             navigate(`/purchase-detail/${purchase.paymentId}`, { 
                 state: { 
                     purchaseDetail,
