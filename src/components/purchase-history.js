@@ -30,7 +30,7 @@ const PurchaseHistory = () => {
     const [size, setSize] = useState('10');
     const [startDate, setStartDate] = useState(new Date());
     const navigate = useNavigate();
-    const processedPayments = new Set(); // To track unique payment IDs
+    const processedPayments = new Set(); 
 
     useEffect(() => {
         const EventSource = EventSourcePolyfill || NativeEventSource;
@@ -60,7 +60,6 @@ const PurchaseHistory = () => {
 
         const timeoutId = setTimeout(() => {
             eventSource.close();
-            console.log('EventSource connection closed after 30 minutes');
         }, 30 * 60 * 1000); 
 
         return () => {
@@ -81,7 +80,7 @@ const PurchaseHistory = () => {
                 } 
             });
         } catch (error) {
-            console.error('Error fetching purchase detail:', error);
+            console.error('상품 디테일을 얻어오는 것을 실패했습니다:', error);
         }
     };
 
