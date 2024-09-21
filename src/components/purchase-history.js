@@ -21,9 +21,9 @@ import { EventSourcePolyfill, NativeEventSource } from "event-source-polyfill";
  * ----------  --------    ---------------------------
  * 2024.09.03  구지웅        최초 생성
  * 2024.09.03  구지웅        SearchBar 컴포넌트 DatePicker 숨기기
+ * 2024.09.21  구지웅        신규 데이터 안 쌓이는 현상 해결과 커넥션 타임 수정
  * </pre>
  */
-
 const PurchaseHistory = () => {
     const [purchases, setPurchases] = useState([]);
     const [page, setPage] = useState('0');
@@ -58,11 +58,13 @@ const PurchaseHistory = () => {
             });
         };
 
-        eventSource.onerror = () => {
-            eventSource.close(); 
-        };
+        const timeoutId = setTimeout(() => {
+            eventSource.close();
+            console.log('EventSource connection closed after 30 minutes');
+        }, 30 * 60 * 1000); 
 
         return () => {
+            clearTimeout(timeoutId); 
             eventSource.close(); 
         };
     }, [page, size, startDate]);
