@@ -71,7 +71,8 @@ const AdminDashboard = () => {
         }
         instance.get(`/admins/sales`, {
             headers: {
-                authorization: `Bearer ${token}`
+                authorization: `Bearer ${token}`,
+                'ngrok-skip-browser-warning': '69420',
             },
             params: {
                 year: selectedYear,

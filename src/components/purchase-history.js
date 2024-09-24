@@ -40,7 +40,8 @@ const PurchaseHistory = () => {
 
         const eventSource = new EventSource(eventSourceURL, {
             headers: {
-                'Authorization': 'Bearer ' + token
+                'Authorization': 'Bearer ' + token,
+                'ngrok-skip-browser-warning': '69420',
             }
         });
 
@@ -70,7 +71,12 @@ const PurchaseHistory = () => {
 
     const handleArrowClick = async (purchase) => {
         try {
-            const response = await instance.get(`/admins/payments/${purchase.paymentId}`);
+            const response = await instance.get(`/admins/payments/${purchase.paymentId}`, {
+                headers: {
+                    'ngrok-skip-browser-warning': '69420',
+                }
+        });
+            
             const purchaseDetail = response.data;
             navigate(`/purchase-detail/${purchase.paymentId}`, { 
                 state: { 

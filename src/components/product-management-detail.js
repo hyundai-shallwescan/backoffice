@@ -66,12 +66,15 @@ const ProductManagementDetail = () => {
             const token = localStorage.getItem('token');
             if (productData) {
                 await instance.patch(`/admins/products/${productData.productId}`, formData, {
-                    headers: { 'Content-Type': 'multipart/form-data'
+                    headers: { 'Content-Type': 'multipart/form-data',
+                        'ngrok-skip-browser-warning': '69420',
+
             }
                 });
             } else {
                 await instance.post('/admins/products', formData, {
-                    headers: { 'Content-Type': 'multipart/form-data'
+                    headers: { 'Content-Type': 'multipart/form-data',
+                        'ngrok-skip-browser-warning': '69420',
                 }
                 });
             }
