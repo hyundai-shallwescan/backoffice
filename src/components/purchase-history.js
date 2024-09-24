@@ -61,7 +61,7 @@ const PurchaseHistory = () => {
 
         const timeoutId = setTimeout(() => {
             eventSource.close();
-        }, 30 * 60 * 1000); 
+        }, 60 * 60 * 1000); 
 
         return () => {
             clearTimeout(timeoutId); 

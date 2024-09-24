@@ -67,8 +67,53 @@ const AdminDashboard = () => {
     useEffect(() => {
         const token = getCookie('accessToken');
         if (token) {
-            api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         }
+        function generateDummyData(length, min, max) {
+            return Array.from({ length }, () => Math.floor(Math.random() * (max - min + 1)) + min);
+        }
+        const augustData = generateDummyData(31, 4150000, 4152000);
+        const septemberData = generateDummyData(25, 4100000, 4200000);
+        const labels = Array.from({ length: 31 }, (v, i) => String(i + 1).padStart(2, '0'));
+        const secondLabel = Array.from({ length: 25 }, (v, i) => String(i + 1).padStart(2, '0'));
+
+        if (selectedMonth === '8') {
+            setDailySalesData({
+                labels: labels,
+                datasets: [{
+                    label: '일별 매출 - 8월',
+                    data: [ 3599705, 3589705, 3599705, 3619705, 3589705, 
+                        3559705, 3599705, 3539705, 3559705, 3589705, 
+                        3599705,3570705 , 3579705, 3619705, 3612705, 
+                        3622705, 3591005, 3581005, 3611705, 3601005, 
+                        3590005, 3580005, 3560005, 3590005, 3610005, 
+                        3580005, 3590005, 3570005, 3610005, 3610005,3620005],
+                    backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                    borderColor: '#28a745',
+                    borderWidth: 2,
+                    fill: true,
+                }],
+            });
+        } else if (selectedMonth === '9') {
+            setDailySalesData({
+                labels: secondLabel,
+                datasets: [{
+                    label: '일별 매출 - 9월',
+                     data: [ 
+                        3599705,3570705 , 3579705, 3619705, 3612705, 
+                        3622705, 3591005, 3581005, 3611705, 3601005, 
+                        3599705, 3589705, 3599705, 3619705, 3589705, 
+                        3559705, 3599705, 3569705, 3579705, 3589705, 
+                        3590005, 3580005, 3570005, 3590005, 3610005, 
+                         ],
+                    backgroundColor: 'rgba(40, 167, 69, 0.2)',
+                    borderColor: '#28a745',
+                    borderWidth: 2,
+                    fill: true,
+                }],
+            });
+        }
+
         instance.get(`/admins/sales`, {
             headers: {
                 authorization: `Bearer ${token}`,
@@ -80,24 +125,7 @@ const AdminDashboard = () => {
             }
         })
         .then(response => {
-            const data = response.data[0]; 
-    
-            console.log('Fetched data:', data);
-    
-            const labels = data.dailySaleDtoList.map(sale => sale.day);
-            const totalAmounts = data.dailySaleDtoList.map(sale => sale.totalAmount);
-    
-            setDailySalesData({
-                labels: labels,
-                datasets: [{
-                    label: '일별 매출',
-                    data: totalAmounts,
-                    backgroundColor: 'rgba(40, 167, 69, 0.2)',
-                    borderColor: '#28a745',
-                    borderWidth: 2,
-                    fill: true,
-                }],
-            });
+            const data = response.data[0];
     
             setAgeSalesData({
                 labels: ['10-19', '20-29', '30-39', '40-49', '50-59', '60+'],
@@ -136,6 +164,7 @@ const AdminDashboard = () => {
             console.error('Error fetching sales data:', error);
         });
     }, [selectedYear, selectedMonth]);
+
 
     return (
         <MainLayout>

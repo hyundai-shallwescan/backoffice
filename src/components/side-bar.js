@@ -2,12 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/sidebar.css'; 
 
+/**
+ * PurchaseHistory Component
+ * @author 구지웅
+ * @since 2024.08.31
+ * @version 1.0
+ *
+ * <pre>
+ * 수정일      	 수정자        수정내용
+ * ----------  --------    ---------------------------
+ * 2024.09.03  구지웅        최초 생성
+ * 2024.09.20  구지웅        hideDatePicker 추가
+ * </pre>
+ */
 const Sidebar = () => {
     const [selectedItem, setSelectedItem] = useState('payment-history');
-    const location = useLocation(); // useLocation hook to get the current route
+    const location = useLocation(); 
 
     useEffect(() => {
-        // Update the selected item based on the current pathname
         if (location.pathname.includes('payment-history')) {
             setSelectedItem('payment-history');
         } else if (location.pathname.includes('sales-history')) {
@@ -15,10 +27,10 @@ const Sidebar = () => {
         } else if (location.pathname.includes('product-management')) {
             setSelectedItem('product-management');
         }
-    }, [location]); // Runs every time the location (route) changes
+    }, [location]);
 
 
-    // Function to handle item selection
+    
     const handleItemClick = (item) => {
         setSelectedItem(item);
     };
